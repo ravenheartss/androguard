@@ -112,7 +112,7 @@ def androcg_main(verbose,
                          gexf=nx.write_gexf,
                          gpickle=nx.write_gpickle,
                          graphml=nx.write_graphml,
-                         yaml=nx.write_yaml,
+                         yaml=dump_yaml,
                          net=nx.write_pajek,
                          )
 
@@ -128,6 +128,22 @@ def androcg_main(verbose,
             sys.exit(1)
 
         write_methods[writer](CG, output)
+
+
+def dump_yaml(cg, filename):
+    """
+    Dump the call graph into a yaml file
+    using pyyaml.
+
+    :param cg: A networkx call graph to export
+    :param filename: file to export to.
+    """
+    import yaml
+    
+    with open(filename, 'w') as fd:
+        yaml.dump_yaml(cg, fd)
+
+
 
 
 def plot(cg):
